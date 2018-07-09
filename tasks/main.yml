@@ -1,2 +1,58 @@
 ---
-# tasks file for arm-elasticsearch
+- name: Ensure directories exist
+  file:
+    path: "{{ item.strip().split()[0] }}"
+    state: directory
+    owner: root
+    group: elasticsearch
+  with_items: "{{ elasticsearch.data_path }}"
+  tags:
+    - elasticsearch
+
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python-software-properties
+    - debconf-utils
+  tags:
+    - elasticsearch
+
+- name: add ppa:webupd8team/java
+  apt_repository:
+    repo: ppa:webupd8team/java
+    state: present
+  notify:
+    - update repositories cache
+    - accept oracle license
+  tags:
+    - elasticsearch
+
+- name: Update repositories cache
+  apt:
+    name: oracle-java8-installer
+    state: present
+  tags:
+    - elasticsearch
+
+- name: "Download elasticsearch {{ elasticsearch.version }}"
+  apt:
+    deb: "{{ elasticsearch.url }}-{{ elasticsearch.version }}.deb"
+  notify: restart elasticsearch
+  tags:
+    - elasticsearch
+
+- name: Generate config files
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/elasticsearch/{{ item }}"
+  with_items:
+    - elasticsearch.yml
+    - jvm.options
+  tags:
+    - elasticsearch
+  notify: restart elasticsearch
+  tags:
+    - elasticsearch
+

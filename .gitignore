@@ -1,3 +1,4 @@
 inventory.ini
 playbook.yml
 ansible.cfg
+molecule

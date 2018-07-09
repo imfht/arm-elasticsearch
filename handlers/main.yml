@@ -1,2 +1,16 @@
 ---
-# handlers file for arm-elasticsearch
+- name: restart elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted
+
+- name: update repositories cache
+  apt:
+    update_cache: yes
+  tags:
+    - elasticsearch
+
+- name: accept oracle license
+  command: 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
+  tags:
+    - elasticsearch
