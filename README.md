@@ -1,4 +1,4 @@
-Role Name
+Arm Elasticsearch
 =========
 
 Installs and configures Elasticsearch "{{ elasticsearch.version }}" to a Raspberry pi or Odroid running ubuntu.
