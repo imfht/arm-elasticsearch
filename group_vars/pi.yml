@@ -1,41 +1,7 @@
 ---
-# envars
-editor: vim
-browser: firefox
-term: rxvt
-text:
-  font: DejaVu Sans Mono
-  size: 18
-
-# time
-time_zone: US/Pacific
-
-# locale
-locale: en_US.UTF-8 UTF-8
-lang: en_US.UTF-8
-
-# base packages
-pkgs:
-  - alsa-utils
-  - ansible
-  - dialog
-  - git
-  - htop
-  - linux-headers
-  - lsof
-  - mlocate
-  - mtpaint
-  - nmap
-  - rsync
-  - speedtest-cli
-  - sudo
-  - tcpdump
-  - vim
-  - wget
-  - wpa_supplicant
-  - zsh
-
-vagrant_plugins:
-  # - vagrant-hostsupdater
-  # - vagrant-share
-  # - vagrant-vbguest
+java:
+  repo:
+  name: oracle-java8-jdk
+  xms: 256m
+  xmx: 256m
+  xss: 320k
