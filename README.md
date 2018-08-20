@@ -11,7 +11,8 @@ Ubuntu
 Role Variables
 --------------
 
-|| Variable || Default ||
+| Variable | Default |
+|:---------|:--------|
 | java.repo | ppa:webupd8team/java |
 | java.name | oracle-java8-installer |
 | java.xms | 512m |
