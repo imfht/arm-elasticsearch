@@ -4,7 +4,7 @@
 //env.M_URL = 'stratum+tcp://xmg.minerclaim.net:3333'
 //env.M_CPU = '50'
 
-node('ninja') {
+node('arm32v7') {
 
     try {
 
