@@ -4,7 +4,7 @@ TAG = "arm32v7"
 all: build
 
 build:
-	@docker build -t ${IMAGE}:$(TAG) .
+	@docker build -t ${IMAGE}:$(TAG) ./docker
 	@docker tag ${IMAGE}:$(TAG) ${IMAGE}:latest
 
 push:
