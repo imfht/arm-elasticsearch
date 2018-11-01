@@ -62,7 +62,7 @@ node.name: es_{{ ansible_hostname }}
 network.bind_host: ["_eth0_","_eth2_"]
 network.publish_host: _eth2_
 {% else %}
-network.network_host: _eth0_
+network.host: _eth0_
 {% endif %}
 
 # network.bind_host: 192.168.2.241
