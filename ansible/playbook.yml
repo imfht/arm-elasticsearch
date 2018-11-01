@@ -55,6 +55,17 @@
     - name: max_map_count
       command: sysctl -w vm.max_map_count=262144
 
+    - name: Generate config files
+      template:
+        src: "{{ item }}.j2"
+        dest: "/etc/elasticsearch/{{ item }}"
+      with_items:
+        - elasticsearch.yml
+        - jvm.options
+      # notify: restart elasticsearch
+      tags:
+        - elasticsearch
+
 # ###########################################################
 # # Install and configure Elasticsearch
 # ###########################################################
@@ -113,18 +124,7 @@
 #       notify: restart elasticsearch
 #       tags:
 #         - elasticsearch
-#
-#     - name: Generate config files
-#       template:
-#         src: "{{ item }}.j2"
-#         dest: "/etc/elasticsearch/{{ item }}"
-#       with_items:
-#         - elasticsearch.yml
-#         - jvm.options
-#       notify: restart elasticsearch
-#       tags:
-#         - elasticsearch
-#
+
 #   handlers:
 #
 #     - name: restart elasticsearch
