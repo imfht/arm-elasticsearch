@@ -58,8 +58,12 @@ node.name: es_{{ ansible_hostname }}
 # network.host: _eth0_
 # network.bind_host: ["yourhost", "localhost"]
 # network.bind_host: ["_eth0_", "_eth1_"]
-network.bind_host: "0.0.0.0"
+{% if hostvars[host]['ansible_hostname'] == 'venus' %}
+network.bind_host: ["_eth0_","_eth2_"]
 network.publish_host: _eth2_
+{% else %}
+network.network_host: _eth0_
+{% endif %}
 
 # network.bind_host: 192.168.2.241
 # network.publish_host: 192.168.2.241
