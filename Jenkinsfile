@@ -25,20 +25,22 @@ node('arm32v7') {
             sh "make push"
         }
 
-//         stage('deploy') {
-//           withCredentials([usernamePassword(credentialsId: xmg_creds,
-//             usernameVariable: 'M_USER',
-//             passwordVariable: 'M_PASS')]) {
-//             // Deploy to Swarm
-//             echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-//             echo "M_USER = ${env.M_USER}"
-//             echo "M_PASS = ${env.M_PASS}"
-//             echo "M_WORK = ${env.M_WORK}"
-//             echo "M_URL = ${env.M_URL}"
-//             echo "M_CPU = ${env.M_CPU}"
-//             sh "make deploy"
-//           }
-//         }
+    } catch(error) {
+        throw error
+
+    } finally {
+        // Any cleanup operations needed, whether we hit an error or not
+
+    }
+}
+
+node('master') {
+
+    try {
+
+        stage('deploy') {
+            sh "make deploy"
+        }
 
     } catch(error) {
         throw error

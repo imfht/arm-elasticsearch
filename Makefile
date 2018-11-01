@@ -12,6 +12,6 @@ push:
 	@docker push ${IMAGE}:latest
 
 deploy:
-	@docker stack deploy -c elastic-stack.yml elk
+	@docker stack deploy -c docker-compose.yml elk
 
 .PHONY: all build push deploy

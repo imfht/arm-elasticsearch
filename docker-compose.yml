@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  elasticsearch:
+    image: jahrik/arm-elasticsearch:arm32v7
+    deploy:
+      placement:
+        constraints:
+          - node.labels.arch == arm32v7
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      # command: /bin/bash /home/start.sh
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /data:/var/lib/elasticsearch
