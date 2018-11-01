@@ -1,9 +1,5 @@
 #!/usr/bin/env groovy
 
-//env.M_WORK = 'odroid'
-//env.M_URL = 'stratum+tcp://xmg.minerclaim.net:3333'
-//env.M_CPU = '50'
-
 node('arm32v7') {
 
     try {
@@ -46,6 +42,15 @@ node('master') {
         }
 
         stage('deploy') {
+            // Ansible
+            echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            ansiColor('xterm') {
+                ansiblePlaybook(
+                    playbook: 'ansible/playbook.yml',
+                    inventory: 'ansible/inventory.ini',
+                    colorized: true)
+            }
+            // Docker deploy
             sh "make deploy"
         }
 

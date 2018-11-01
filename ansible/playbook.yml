@@ -1,0 +1,180 @@
+---
+###########################################################
+# Prep /dev/sda on the Odroid HC1 to be a data drive
+###########################################################
+- hosts: odroid
+  become: true
+  become_method: sudo
+  vars:
+    elasticsearch:
+      data_path: /var/lib/elasticsearch
+
+  tasks:
+
+    - name: install parted
+      package:
+        name: parted
+        state: present
+      tags:
+        - setup
+
+    - name: Create Primary partition
+      parted:
+        device: /dev/sda
+        number: 1
+        state: present
+      tags:
+        - setup
+
+    - name: Create a ext4 filesystem on /dev/sda1
+      filesystem:
+        fstype: ext4
+        dev: /dev/sda1
+        # opts: -cc
+      tags:
+        - setup
+
+    - name: Ensure group elasticsearch exists
+      group:
+        name: elasticsearch
+        state: present
+      tags:
+        - setup
+
+    - name: Ensure directory exists
+      file:
+        path: "{{ elasticsearch.data_path }}"
+        state: directory
+        owner: root
+        group: elasticsearch
+      tags:
+        - setup
+
+    - name: Mount data drive
+      mount:
+        path: "{{ elasticsearch.data_path }}"
+        src: /dev/sda1
+        fstype: ext4
+        state: present
+      tags:
+        - setup
+
+# ###########################################################
+# # Install and configure Elasticsearch
+# ###########################################################
+# - hosts: all
+#   become: true
+#   become_method: sudo
+#   vars:
+#     elasticsearch:
+#       version: 6.3.1
+#       url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch
+#       data_path: /var/lib/elasticsearch
+#       logs_path: /var/log/elasticsearch
+#       network_host: _eth0_
+#
+#   tasks:
+#
+#     - name: add ppa:webupd8team/java
+#       apt_repository:
+#         repo: "{{ java.repo }}"
+#         state: present
+#       notify:
+#         - update repositories cache
+#         - accept oracle license
+#       when:
+#         - java.repo
+#       tags:
+#         - java
+#
+#     - name: Install oracle java8
+#       apt:
+#         name: "{{ java.name }}"
+#         state: present
+#       tags:
+#         - java
+#
+#     - name: check elasticsearch version
+#       ignore_errors: true
+#       command: /usr/share/elasticsearch/bin/elasticsearch --version
+#       register: elasticsearch_version
+#       tags:
+#         - elasticsearch
+#
+#     - debug:
+#         var: elasticsearch_version.stdout
+#       tags:
+#         - elasticsearch
+#
+#     - debug:
+#         msg: "elasticsearch {{ elasticsearch.version }} will be installed"
+#       tags:
+#         - elasticsearch
+#
+#     - name: "Install elasticsearch {{ elasticsearch.version }}"
+#       apt:
+#         deb: "{{ elasticsearch.url }}-{{ elasticsearch.version }}.deb"
+#       notify: restart elasticsearch
+#       tags:
+#         - elasticsearch
+#
+#     - name: Generate config files
+#       template:
+#         src: "{{ item }}.j2"
+#         dest: "/etc/elasticsearch/{{ item }}"
+#       with_items:
+#         - elasticsearch.yml
+#         - jvm.options
+#       notify: restart elasticsearch
+#       tags:
+#         - elasticsearch
+#
+#   handlers:
+#
+#     - name: restart elasticsearch
+#       service:
+#         name: elasticsearch
+#         state: restarted
+#
+#     - name: update repositories cache
+#       apt:
+#         update_cache: yes
+#       tags:
+#         - elasticsearch
+#
+#     - name: accept oracle license
+#       command: 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
+#       tags:
+#         - elasticsearch
+
+####################################################################################################
+
+#     - name: Ensure directories exist
+#       file:
+#         path: "{{ item.strip().split()[0] }}"
+#         state: directory
+#         owner: root
+#         group: elasticsearch
+#       with_items: "{{ elasticsearch.directories }}"
+#       tags:
+#         - elasticsearch
+
+#     - name: Install dependencies
+#       package:
+#         name: "{{ item }}"
+#         state: present
+#       with_items:
+#         - python-software-properties
+#         - debconf-utils
+#       tags:
+#         - elasticsearch
+
+#     - name: uninstall elasticsearch
+#       apt:
+#         name: elasticsearch
+#         state: absent
+#       when:
+#         - elasticsearch_version is defined and not elasticsearch.version in elasticsearch_version.stdout
+#       tags:
+#         - elasticsearch
+
