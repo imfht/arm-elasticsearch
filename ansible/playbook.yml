@@ -34,19 +34,12 @@
       tags:
         - setup
 
-    - name: Ensure group elasticsearch exists
-      group:
-        name: elasticsearch
-        state: present
-      tags:
-        - setup
-
     - name: Ensure directory exists
       file:
         path: "{{ elasticsearch.data_path }}"
         state: directory
-        owner: root
-        group: elasticsearch
+        owner: 102
+        group: 103
       tags:
         - setup
 
