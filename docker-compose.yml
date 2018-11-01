@@ -13,9 +13,9 @@ services:
         delay: 10s
         max_attempts: 10
         window: 60s
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    # ports:
+      # - "9200:9200"
+      # - "9300:9300"
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
@@ -32,9 +32,9 @@ services:
         delay: 10s
         max_attempts: 10
         window: 60s
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    # ports:
+      # - "9200:9200"
+      # - "9300:9300"
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
@@ -51,9 +51,9 @@ services:
         delay: 10s
         max_attempts: 10
         window: 60s
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    # ports:
+      # - "9200:9200"
+      # - "9300:9300"
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
