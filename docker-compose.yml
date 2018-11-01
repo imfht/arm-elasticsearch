@@ -12,9 +12,8 @@ services:
         delay: 10s
         max_attempts: 10
         window: 60s
-      # command: /bin/bash /home/start.sh
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - /data:/var/lib/elasticsearch
+      - /data:/var/lib/elasticsearch:rw

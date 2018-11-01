@@ -1,4 +1,4 @@
 #!/bin/bash
 
 service elasticsearch start
-tail -f /dev/null
+tail -f /var/log/elasticsearch/elasticsearch.log

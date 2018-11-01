@@ -59,6 +59,9 @@
       tags:
         - setup
 
+    - name: max_map_count
+      command: sysctl -w vm.max_map_count=262144
+
 # ###########################################################
 # # Install and configure Elasticsearch
 # ###########################################################
