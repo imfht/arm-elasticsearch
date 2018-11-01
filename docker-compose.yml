@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  venus:
+  es_venus:
     image: jahrik/arm-elasticsearch:arm32v7
     deploy:
       placement:
@@ -21,7 +21,7 @@ services:
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
       - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
 
-  ninja:
+  es_ninja:
     image: jahrik/arm-elasticsearch:arm32v7
     deploy:
       placement:
@@ -40,7 +40,7 @@ services:
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
       - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
 
-  oroku:
+  es_oroku:
     image: jahrik/arm-elasticsearch:arm32v7
     deploy:
       placement:
