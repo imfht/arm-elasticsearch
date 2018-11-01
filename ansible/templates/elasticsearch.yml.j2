@@ -41,7 +41,7 @@ node.name: {{ ansible_hostname }}
 #
 # Lock the memory on startup:
 
-bootstrap.memory_lock: true
+# bootstrap.memory_lock: true
 
 # Make sure that the heap size is set to about half the memory available
 # on the system and that the owner of the process is allowed to use this
@@ -76,7 +76,8 @@ bootstrap.memory_lock: true
 
 # discovery.zen.ping.multicast.enabled: false
 
-# discovery.zen.ping.unicast.hosts: [\"{% for host in play_hosts if hostvars[host]['ansible_hostname'] != ansible_hostname %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endfor %}\"]
+# discovery.zen.ping.unicast.hosts: ["{% for host in play_hosts if hostvars[host]['ansible_hostname'] != ansible_hostname %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endfor %}"]
+# discovery.zen.ping.unicast.hosts: ["{% for host in play_hosts if hostvars[host]['ansible_hostname'] != ansible_hostname %}{{ hostvars[host]['name'] }}{% endfor %}"]
 
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 
