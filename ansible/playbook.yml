@@ -15,6 +15,7 @@
         - /data
         - /etc/elasticsearch
         - /var/log/elasticsearch/
+      network_host: 'placeholder'
     java:
       repo: ppa:webupd8team/java
       name: oracle-java8-installer
