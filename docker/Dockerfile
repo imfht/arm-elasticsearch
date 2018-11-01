@@ -3,10 +3,6 @@ FROM arm32v7/ubuntu
 # Configure envars
 ENV ES_VERSION 5.5.2
 ENV ES_URL=https://artifacts.elastic.co/downloads/elasticsearch/
-ENV ES_HOME /opt/elasticsearch
-ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
-ENV ES_GID 991
-ENV ES_UID 991
 
 # Install dependencies
 RUN apt-get update
@@ -20,7 +16,7 @@ RUN apt-get update
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
 
-RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.deb && \
+RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
 	dpkg -i elasticsearch-${ES_VERSION}.deb
 
 COPY start.sh /usr/local/bin/start.sh
