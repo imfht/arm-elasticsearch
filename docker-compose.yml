@@ -2,13 +2,51 @@ version: '3'
 
 services:
 
-  elasticsearch:
+  venus:
     image: jahrik/arm-elasticsearch:arm32v7
     deploy:
-      mode: global
       placement:
         constraints:
           - node.labels.arch == arm32v7
+          - node.hostname == venus
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /data:/var/lib/elasticsearch:rw
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
+
+  ninja:
+    image: jahrik/arm-elasticsearch:arm32v7
+    deploy:
+      placement:
+        constraints:
+          - node.labels.arch == arm32v7
+          - node.hostname == ninja
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /data:/var/lib/elasticsearch:rw
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
+
+  oroku:
+    image: jahrik/arm-elasticsearch:arm32v7
+    deploy:
+      placement:
+        constraints:
+          - node.labels.arch == arm32v7
+          - node.hostname == oroku
       restart_policy:
         delay: 10s
         max_attempts: 10
