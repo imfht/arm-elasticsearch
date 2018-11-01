@@ -54,7 +54,7 @@ node.name: es_{{ ansible_hostname }}
 # Set the bind address to a specific IP (IPv4 or IPv6):
 
 {% if ansible_hostname == 'venus' %}
-network.bind_host: ["_eth0_","_eth2_"]
+network.bind_host: ["_eth0_","_eth1_"]
 network.publish_host: _eth0_
 {% else %}
 network.host: _eth0_
