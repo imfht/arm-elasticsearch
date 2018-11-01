@@ -20,6 +20,7 @@ RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
 	dpkg -i elasticsearch-${ES_VERSION}.deb
 
 COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 # COPY config/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 # COPY config/jvm.options /etc/elasticsearch/jvm.options
 # COPY config/log4j2.properties /etc/elasticsearch/log4j2.properties
