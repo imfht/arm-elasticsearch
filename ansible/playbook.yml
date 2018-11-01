@@ -7,7 +7,13 @@
   become_method: sudo
   vars:
     elasticsearch:
+      uid: 102
+      gid: 103
       data_path: /data
+      directories:
+        - /data
+        - /etc/elasticsearch
+        - /var/log/elasticsearch/
     java:
       repo: ppa:webupd8team/java
       name: oracle-java8-installer
@@ -42,10 +48,11 @@
 
     - name: Ensure directory exists
       file:
-        path: "{{ elasticsearch.data_path }}"
+        path: "{{ item }}"
         state: directory
-        owner: 102
-        group: 103
+        owner: "{{ elasticsearch.uid}}"
+        group: "{{ elasticsearch.gid}}"
+      with_items: ["{{ elasticsearch.directories }}"]
       tags:
         - setup
 

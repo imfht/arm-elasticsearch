@@ -31,11 +31,11 @@ node.name: {{ ansible_hostname }}
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-path.data: {{ elasticsearch.data_path }}
+# path.data: {{ elasticsearch.data_path }}
 #
 # Path to log files:
 #
-path.logs: {{ elasticsearch.logs_path }}
+# path.logs: {{ elasticsearch.logs_path }}
 #
 # ----------------------------------- Memory -----------------------------------
 #
@@ -55,7 +55,7 @@ bootstrap.memory_lock: true
 #
 # network.host: 192.168.0.1
 
-network.host: {{ elasticsearch.network_host }}
+# network.host: {{ elasticsearch.network_host }}
 
 # network.bind_host: 192.168.2.241
 # network.publish_host: 192.168.2.241
@@ -76,11 +76,11 @@ network.host: {{ elasticsearch.network_host }}
 
 # discovery.zen.ping.multicast.enabled: false
 
-discovery.zen.ping.unicast.hosts: [\"{% for host in play_hosts if hostvars[host]['ansible_hostname'] != ansible_hostname %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endfor %}\"]
+# discovery.zen.ping.unicast.hosts: [\"{% for host in play_hosts if hostvars[host]['ansible_hostname'] != ansible_hostname %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endfor %}\"]
 
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 
-discovery.zen.minimum_master_nodes: 2
+# discovery.zen.minimum_master_nodes: 2
 
 # For more information, consult the zen discovery module documentation.
 #
