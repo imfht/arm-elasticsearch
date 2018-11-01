@@ -38,12 +38,11 @@ node('master') {
 
     try {
 
-        stage('build') {
+        stage('scm') {
             // Clean workspace
             deleteDir()
             // Checkout the app at the given commit sha from the webhook
             checkout scm
-            sh "make"
         }
 
         stage('deploy') {
