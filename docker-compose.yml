@@ -14,7 +14,7 @@ services:
         max_attempts: 10
         window: 60s
     ports:
-      - '9200:9200'
+      - "9200:9200"
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
