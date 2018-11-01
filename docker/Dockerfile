@@ -1,7 +1,7 @@
 FROM arm32v7/ubuntu
 
 # Configure envars
-ENV ES_VERSION 6.3.2
+ENV ES_VERSION 5.6.2
 ENV ES_URL=https://artifacts.elastic.co/downloads/elasticsearch/
 ENV ES_HOME /opt/elasticsearch
 ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
