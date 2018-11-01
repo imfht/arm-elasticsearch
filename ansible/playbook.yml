@@ -8,6 +8,12 @@
   vars:
     elasticsearch:
       data_path: /data
+    java:
+      repo: ppa:webupd8team/java
+      name: oracle-java8-installer
+      xms: 512m
+      xmx: 512m
+      xss: 320k
 
   tasks:
 
