@@ -58,7 +58,7 @@ node.name: es_{{ ansible_hostname }}
 # network.host: _eth0_
 # network.bind_host: ["yourhost", "localhost"]
 # network.bind_host: ["_eth0_", "_eth1_"]
-{% if hostvars[host]['ansible_hostname'] == 'venus' %}
+{% if ansible_hostname == 'venus' %}
 network.bind_host: ["_eth0_","_eth2_"]
 network.publish_host: _eth2_
 {% else %}
