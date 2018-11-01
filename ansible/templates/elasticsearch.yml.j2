@@ -55,7 +55,7 @@ node.name: es_{{ ansible_hostname }}
 #
 # network.host: 192.168.0.1
 
-# network.host: es_{{ groups.odroid[0] }}
+network.host: es_{{ ansible_hostname }}
 
 # network.bind_host: 192.168.2.241
 # network.publish_host: 192.168.2.241
