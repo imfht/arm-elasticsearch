@@ -68,7 +68,10 @@
         - setup
 
     - name: max_map_count
-      command: sysctl -w vm.max_map_count=262144
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^vm.max_map_count='
+        line: 'vm.max_map_count=262144'
 
     - name: Generate config files
       template:
