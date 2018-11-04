@@ -1,7 +1,7 @@
 FROM arm32v7/ubuntu
 
 # Configure envars
-ENV ES_VERSION 5.5.2
+ENV ES_VERSION 5.6.12
 ENV ES_URL=https://artifacts.elastic.co/downloads/elasticsearch/
 
 # Install dependencies
