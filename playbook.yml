@@ -60,7 +60,7 @@
 
     - name: Mount data drive
       mount:
-        path: "{{ elasticsearch.data_path }}"
+        path: /data
         src: /dev/sda1
         fstype: ext4
         state: present
