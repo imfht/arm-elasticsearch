@@ -4,6 +4,7 @@ FROM arm32v7/openjdk:8-jre
 RUN apt-get update \
   && apt-get install -y \
   wget \
+  procps \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Elasticsearch
