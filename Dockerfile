@@ -1,4 +1,4 @@
-FROM arm32v7/openjdk:8-jre
+FROM arm32v7/openjdk:8-jdk
 
 # grab gosu for easy step-down from root
 ENV GOSU_USER 0:0
@@ -10,7 +10,7 @@ RUN set -eux; \
 # verify that the binary works
   gosu nobody true
 
-ENV ES_VERSION 5.6.12
+ENV ES_VERSION 6.4.3
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
 ENV ES_HOME /usr/share/elasticsearch
 RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
