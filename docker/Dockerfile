@@ -1,4 +1,4 @@
-FROM arm32v7/openjdk:8-jdk
+FROM arm32v7/openjdk:8-jre
 
 # Install dependencies
 RUN apt-get update \
