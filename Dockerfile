@@ -10,7 +10,7 @@ RUN set -eux; \
 # verify that the binary works
   gosu nobody true
 
-ENV ES_VERSION 6.4.3
+ENV ES_VERSION 5.6.12
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
 # ENV ES_HOME /usr/share/elasticsearch
 ENV ES_PATH_CONF /etc/elasticsearch
