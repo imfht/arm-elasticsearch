@@ -12,7 +12,7 @@ RUN set -eux; \
 
 ENV ES_VERSION 5.6.12
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
-# ENV ES_HOME /usr/share/elasticsearch
+ENV ES_HOME /usr/share/elasticsearch
 ENV ES_PATH_CONF /etc/elasticsearch
 RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
   dpkg -i elasticsearch-${ES_VERSION}.deb && \
@@ -34,7 +34,10 @@ RUN set -ex \
     chown -R elasticsearch:elasticsearch "$path"; \
   done
 
-COPY config /etc/elasticsearch/
+COPY config ./config/
+RUN ln -sf ${ES_HOME}/config/log4j2.properties ${ES_PATH_CONF}/log4j2.properties
+RUN ln -sf ${ES_HOME}/config/elasticsearch.yml ${ES_PATH_CONF}/elasticsearch.yml
+RUN ln -sf ${ES_HOME}/config/jvm.options ${ES_PATH_CONF}/jvm.options
 
 VOLUME /var/lib/elasticsearch
 
