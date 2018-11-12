@@ -1,25 +1,64 @@
 FROM arm32v7/openjdk:8-jre
 
-# Install dependencies
-RUN apt-get update \
-  && apt-get install -y \
-  wget \
-  procps \
-  && rm -rf /var/lib/apt/lists/*
+# grab gosu for easy step-down from root
+ENV GOSU_USER 0:0
+# ENV GOSU_CHOWN /tmp
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y gosu; \
+	rm -rf /var/lib/apt/lists/*; \
+# verify that the binary works
+	gosu nobody true
 
-# Install Elasticsearch
-ENV ES_VERSION 5.6.12
-ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
-ENV ES_HOME /usr/share/elasticsearch
-RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
-	dpkg -i elasticsearch-${ES_VERSION}.deb && \
-  rm elasticsearch-${ES_VERSION}.deb
-WORKDIR ${ES_HOME}
-ENV PATH ${ES_HOME}/bin:$PATH
+RUN set -ex; \
+# https://artifacts.elastic.co/GPG-KEY-elasticsearch
+	key='46095ACC8548582C1A2699A9D27D666CD88E42B4'; \
+	export GNUPGHOME="$(mktemp -d)"; \
+	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+	gpg --export "$key" > /etc/apt/trusted.gpg.d/elastic.gpg; \
+	rm -rf "$GNUPGHOME"; \
+	apt-key list
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html
+# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/deb.html
+RUN set -x \
+	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
+	&& echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list
+
+ENV ELASTICSEARCH_VERSION 5.6.12
+ENV ELASTICSEARCH_DEB_VERSION 5.6.12
+
+RUN set -x \
+	\
+# don't allow the package to install its sysctl file (causes the install to fail)
+# Failed to write '262144' to '/proc/sys/vm/max_map_count': Read-only file system
+	&& dpkg-divert --rename /usr/lib/sysctl.d/elasticsearch.conf \
+	\
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends "elasticsearch=$ELASTICSEARCH_DEB_VERSION" \
+	&& rm -rf /var/lib/apt/lists/*
+
+ENV PATH /usr/share/elasticsearch/bin:$PATH
+
+WORKDIR /usr/share/elasticsearch
+
+RUN set -ex \
+	&& for path in \
+		./data \
+		./logs \
+		./config \
+		./config/scripts \
+	; do \
+		mkdir -p "$path"; \
+		chown -R elasticsearch:elasticsearch "$path"; \
+	done
+
+COPY config ./config
+
+VOLUME /usr/share/elasticsearch/data
+
+COPY docker-entrypoint.sh /
 
 EXPOSE 9200 9300
-
-COPY start.sh /
-RUN chmod +x /start.sh
-
-CMD ["/start.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["elasticsearch"]
