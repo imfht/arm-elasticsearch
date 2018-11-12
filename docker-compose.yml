@@ -8,8 +8,8 @@ services:
       - "9200:9200"
     volumes:
       - /data:/var/lib/elasticsearch:rw
-      - /etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /etc/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     deploy:
       placement:
         constraints:
@@ -37,8 +37,8 @@ services:
     image: jahrik/arm-elasticsearch:arm32v7
     volumes:
       - /data:/var/lib/elasticsearch:rw
-      - /etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /etc/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     deploy:
       placement:
         constraints:
@@ -66,8 +66,8 @@ services:
     image: jahrik/arm-elasticsearch:arm32v7
     volumes:
       - /data:/var/lib/elasticsearch:rw
-      - /etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /etc/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     deploy:
       placement:
         constraints:
