@@ -1,4 +1,4 @@
-FROM arm32v7/openjdk:8-jdk
+FROM arm32v7/openjdk:8-jdk-slim
 
 # grab gosu for easy step-down from root
 ENV GOSU_USER 0:0
@@ -12,31 +12,31 @@ RUN set -eux; \
 
 ENV ES_VERSION 6.4.3
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
-ENV ES_HOME /usr/share/elasticsearch
+# ENV ES_HOME /usr/share/elasticsearch
 ENV ES_PATH_CONF /ect/elasticsearch
 RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
   dpkg -i elasticsearch-${ES_VERSION}.deb && \
   rm elasticsearch-${ES_VERSION}.deb
 
-ENV PATH /usr/share/elasticsearch/bin:$PATH
+# ENV PATH /usr/share/elasticsearch/bin:$PATH
 
-WORKDIR /usr/share/elasticsearch
+# WORKDIR /usr/share/elasticsearch
 
-RUN set -ex \
-  && for path in \
-    ./tmp \
-    ./data \
-    ./logs \
-    ./config \
-    ./config/scripts \
-  ; do \
-    mkdir -p "$path"; \
-    chown -R elasticsearch:elasticsearch "$path"; \
-  done
+# RUN set -ex \
+#   && for path in \
+#     ./tmp \
+#     ./data \
+#     ./logs \
+#     ./config \
+#     ./config/scripts \
+#   ; do \
+#     mkdir -p "$path"; \
+#     chown -R elasticsearch:elasticsearch "$path"; \
+#   done
 
-COPY config ./config
+# COPY config /etc/elasticsearch/
 
-VOLUME /usr/share/elasticsearch/data
+# VOLUME /var/lib/elasticsearch
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
