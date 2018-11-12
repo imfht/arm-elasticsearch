@@ -1,7 +1,0 @@
----
-java:
-  repo:
-  name: oracle-java8-jdk
-  xms: 256m
-  xmx: 256m
-  xss: 320k

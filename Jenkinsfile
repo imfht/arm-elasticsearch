@@ -46,8 +46,8 @@ node('master') {
             echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
             ansiColor('xterm') {
                 ansiblePlaybook(
-                    playbook: 'ansible/playbook.yml',
-                    inventory: 'ansible/inventory.ini',
+                    playbook: 'playbook.yml',
+                    inventory: 'inventory.ini',
                     colorized: true)
             }
             // Docker deploy
