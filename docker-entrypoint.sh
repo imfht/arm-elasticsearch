@@ -18,7 +18,7 @@ if [ "$1" = 'elasticsearch' -a "$(id -u)" = '0' ]; then
 	# Change the ownership of user-mutable directories to elasticsearch
 	for path in \
 		/usr/share/elasticsearch \
-		/ect/elasticsearch \
+		/etc/elasticsearch \
 		/var/log/elasticsearch \
 	; do
 		chown -R elasticsearch:elasticsearch "$path"
