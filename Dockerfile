@@ -18,25 +18,25 @@ RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
   dpkg -i elasticsearch-${ES_VERSION}.deb && \
   rm elasticsearch-${ES_VERSION}.deb
 
-# ENV PATH /usr/share/elasticsearch/bin:$PATH
+ENV PATH /usr/share/elasticsearch/bin:$PATH
 
-# WORKDIR /usr/share/elasticsearch
+WORKDIR /usr/share/elasticsearch
 
-# RUN set -ex \
-#   && for path in \
-#     ./tmp \
-#     ./data \
-#     ./logs \
-#     ./config \
-#     ./config/scripts \
-#   ; do \
-#     mkdir -p "$path"; \
-#     chown -R elasticsearch:elasticsearch "$path"; \
-#   done
+RUN set -ex \
+  && for path in \
+    ./tmp \
+    ./data \
+    ./logs \
+    ./config \
+    ./config/scripts \
+  ; do \
+    mkdir -p "$path"; \
+    chown -R elasticsearch:elasticsearch "$path"; \
+  done
 
-# COPY config /etc/elasticsearch/
+COPY config /etc/elasticsearch/
 
-# VOLUME /var/lib/elasticsearch
+VOLUME /var/lib/elasticsearch
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
