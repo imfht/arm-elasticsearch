@@ -4,17 +4,17 @@ FROM arm32v7/openjdk:8-jre
 ENV GOSU_USER 0:0
 # ENV GOSU_CHOWN /tmp
 RUN set -eux; \
-	apt-get update; \
-	apt-get install -y gosu; \
-	rm -rf /var/lib/apt/lists/*; \
+  apt-get update; \
+  apt-get install -y gosu; \
+  rm -rf /var/lib/apt/lists/*; \
 # verify that the binary works
-	gosu nobody true
+  gosu nobody true
 
 ENV ES_VERSION 5.6.12
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
 ENV ES_HOME /usr/share/elasticsearch
 RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
-	dpkg -i elasticsearch-${ES_VERSION}.deb && \
+  dpkg -i elasticsearch-${ES_VERSION}.deb && \
   rm elasticsearch-${ES_VERSION}.deb
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
@@ -22,15 +22,16 @@ ENV PATH /usr/share/elasticsearch/bin:$PATH
 WORKDIR /usr/share/elasticsearch
 
 RUN set -ex \
-	&& for path in \
-		./data \
-		./logs \
-		./config \
-		./config/scripts \
-	; do \
-		mkdir -p "$path"; \
-		chown -R elasticsearch:elasticsearch "$path"; \
-	done
+  && for path in \
+    ./tmp \
+    ./data \
+    ./logs \
+    ./config \
+    ./config/scripts \
+  ; do \
+    mkdir -p "$path"; \
+    chown -R elasticsearch:elasticsearch "$path"; \
+  done
 
 COPY config ./config
 
