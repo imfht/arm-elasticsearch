@@ -25,13 +25,13 @@ services:
         max_failure_ratio: 1
         failure_action: rollback
         delay: 10s
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 1000M
-        reservations:
-          cpus: '0.30'
-          memory: 500M
+#       resources:
+#         limits:
+#           cpus: '0.50'
+#           memory: 1000M
+#         reservations:
+#           cpus: '0.30'
+#           memory: 500M
 
   es_ninja:
     image: jahrik/arm-elasticsearch:arm32v7
@@ -54,13 +54,13 @@ services:
         max_failure_ratio: 1
         failure_action: rollback
         delay: 10s
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 1000M
-        reservations:
-          cpus: '0.30'
-          memory: 500M
+#       resources:
+#         limits:
+#           cpus: '0.50'
+#           memory: 1000M
+#         reservations:
+#           cpus: '0.30'
+#           memory: 500M
 
   es_oroku:
     image: jahrik/arm-elasticsearch:arm32v7
@@ -83,10 +83,10 @@ services:
         max_failure_ratio: 1
         failure_action: rollback
         delay: 10s
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 1000M
-        reservations:
-          cpus: '0.30'
-          memory: 500M
+#       resources:
+#         limits:
+#           cpus: '0.50'
+#           memory: 1000M
+#         reservations:
+#           cpus: '0.30'
+#           memory: 500M
