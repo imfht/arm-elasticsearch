@@ -7,14 +7,13 @@ set -e
 # Will this work?
 export ES_JAVA_OPTS="$ES_JAVA_OPTS -server -Djna.tmpdir=/var/lib/elasticsearch/tmp"
 
-# Ensure files are present
-if [ -f /usr/share/elasticsearch/config/elasticsearch.yml ]; then
+if [ -f /etc/elasticsearch/elasticsearch.yml ]; then
   ln -sf /etc/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 fi
-if [ -f /usr/share/elasticsearch/config/log4j2.properties ]; then
+if [ -f /etc/elasticsearch/log4j2.properties ]; then
   ln -sf /etc/elasticsearch/log4j2.properties /usr/share/elasticsearch/config/log4j2.properties
 fi
-if [ -f /usr/share/elasticsearch/config/jvm.options ]; then
+if [ -f /etc/elasticsearch/jvm.options ]; then
   ln -sf /etc/elasticsearch/jvm.options /usr/share/elasticsearch/config/jvm.options
 fi
 
