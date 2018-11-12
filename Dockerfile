@@ -13,7 +13,7 @@ RUN set -eux; \
 ENV ES_VERSION 6.4.3
 ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
 # ENV ES_HOME /usr/share/elasticsearch
-ENV ES_PATH_CONF /ect/elasticsearch
+ENV ES_PATH_CONF /etc/elasticsearch
 RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
   dpkg -i elasticsearch-${ES_VERSION}.deb && \
   rm elasticsearch-${ES_VERSION}.deb
