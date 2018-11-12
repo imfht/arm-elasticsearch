@@ -2,6 +2,11 @@
 
 set -e
 
+# ERROR: [1] bootstrap checks failed
+# [1]: JVM is using the client VM [OpenJDK Client VM] but should be using a server VM for the best performance
+# Will this work?
+export ES_JAVA_OPTS="$ES_JAVA_OPTS -server"
+
 # Add elasticsearch as command if needed
 if [ "${1:0:1}" = '-' ]; then
 	set -- elasticsearch "$@"
