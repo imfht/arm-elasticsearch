@@ -30,13 +30,13 @@ node.name: es_{{ ansible_hostname }}
 # ----------------------------------- Paths ------------------------------------
 #
 # Path to directory where to store the data (separate multiple locations by comma):
-#
-# path.data: {{ elasticsearch.data_path }}
-#
+
+path.data: {{ elasticsearch.data_path }}
+
 # Path to log files:
-#
-# path.logs: {{ elasticsearch.logs_path }}
-#
+
+path.logs: {{ elasticsearch.logs_path }}
+
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
