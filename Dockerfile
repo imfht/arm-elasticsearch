@@ -35,7 +35,6 @@ RUN set -ex \
   done
 
 COPY config /etc/elasticsearch/
-COPY config ./config/
 
 VOLUME /var/lib/elasticsearch
 
