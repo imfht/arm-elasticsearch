@@ -5,7 +5,7 @@ ENV GOSU_USER 0:0
 # ENV GOSU_CHOWN /tmp
 RUN set -eux; \
   apt-get update; \
-  apt-get install -y gosu; \
+  apt-get install -y gosu wget; \
   rm -rf /var/lib/apt/lists/*; \
 # verify that the binary works
   gosu nobody true
