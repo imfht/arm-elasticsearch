@@ -19,8 +19,8 @@
     java:
       repo: ppa:webupd8team/java
       name: oracle-java8-installer
-      xms: 750m
-      xmx: 750m
+      xms: 1g
+      xmx: 1g
       xss: 320k
 
   tasks:
