@@ -10,33 +10,12 @@ RUN set -eux; \
 # verify that the binary works
 	gosu nobody true
 
-RUN set -ex; \
-# https://artifacts.elastic.co/GPG-KEY-elasticsearch
-	key='46095ACC8548582C1A2699A9D27D666CD88E42B4'; \
-	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
-	gpg --export "$key" > /etc/apt/trusted.gpg.d/elastic.gpg; \
-	rm -rf "$GNUPGHOME"; \
-	apt-key list
-
-# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html
-# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/deb.html
-RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
-	&& echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list
-
-ENV ELASTICSEARCH_VERSION 5.6.12
-ENV ELASTICSEARCH_DEB_VERSION 5.6.12
-
-RUN set -x \
-	\
-# don't allow the package to install its sysctl file (causes the install to fail)
-# Failed to write '262144' to '/proc/sys/vm/max_map_count': Read-only file system
-	&& dpkg-divert --rename /usr/lib/sysctl.d/elasticsearch.conf \
-	\
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends "elasticsearch=$ELASTICSEARCH_DEB_VERSION" \
-	&& rm -rf /var/lib/apt/lists/*
+ENV ES_VERSION 5.6.12
+ENV ES_URL https://artifacts.elastic.co/downloads/elasticsearch/
+ENV ES_HOME /usr/share/elasticsearch
+RUN wget ${ES_URL}elasticsearch-${ES_VERSION}.deb && \
+	dpkg -i elasticsearch-${ES_VERSION}.deb && \
+  rm elasticsearch-${ES_VERSION}.deb
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 
