@@ -27,10 +27,10 @@ services:
         delay: 10s
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '4'
           memory: 1000M
         reservations:
-          cpus: '0.30'
+          cpus: '2'
           memory: 500M
 
   es_ninja:
@@ -56,10 +56,10 @@ services:
         delay: 10s
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '4'
           memory: 1000M
         reservations:
-          cpus: '0.30'
+          cpus: '2'
           memory: 500M
 
   es_oroku:
@@ -85,8 +85,8 @@ services:
         delay: 10s
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '4'
           memory: 1000M
         reservations:
-          cpus: '0.30'
+          cpus: '2'
           memory: 500M
