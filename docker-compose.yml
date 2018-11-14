@@ -16,9 +16,9 @@ services:
     deploy:
       labels:
         traefik.docker.network: traefik
-        traefik.backend: es_venus
+        traefik.backend: elk
         traefik.port: 9200
-        traefik.frontend.rule: Host:es_venus.homelab.business
+        traefik.frontend.rule: Host:elk.homelab.business
         traefik.frontend.entryPoints: http
       placement:
         constraints:
@@ -37,9 +37,9 @@ services:
     deploy:
       labels:
         traefik.docker.network: traefik
-        traefik.backend: es_ninja
+        traefik.backend: elk
         traefik.port: 9200
-        traefik.frontend.rule: Host:es_ninja.homelab.business
+        traefik.frontend.rule: Host:elk.homelab.business
         traefik.frontend.entryPoints: http
       placement:
         constraints:
@@ -58,9 +58,9 @@ services:
     deploy:
       labels:
         traefik.docker.network: traefik
-        traefik.backend: es_oroku
+        traefik.backend: elk
         traefik.port: 9200
-        traefik.frontend.rule: Host:es_oroku.homelab.business
+        traefik.frontend.rule: Host:elk.homelab.business
         traefik.frontend.entryPoints: http
       placement:
         constraints:
