@@ -14,6 +14,12 @@ services:
       - traefik
       - elk
     deploy:
+      labels:
+        traefik.docker.network: traefik
+        traefik.backend: es_venus
+        traefik.port: 9200
+        traefik.frontend.rule: Host:es_venus.homelab.business
+        traefik.frontend.entryPoints: http
       placement:
         constraints:
           - node.labels.arch == arm32v7
@@ -29,6 +35,12 @@ services:
       - traefik
       - elk
     deploy:
+      labels:
+        traefik.docker.network: traefik
+        traefik.backend: es_ninja
+        traefik.port: 9200
+        traefik.frontend.rule: Host:es_ninja.homelab.business
+        traefik.frontend.entryPoints: http
       placement:
         constraints:
           - node.labels.arch == arm32v7
@@ -44,6 +56,12 @@ services:
       - traefik
       - elk
     deploy:
+      labels:
+        traefik.docker.network: traefik
+        traefik.backend: es_oroku
+        traefik.port: 9200
+        traefik.frontend.rule: Host:es_oroku.homelab.business
+        traefik.frontend.entryPoints: http
       placement:
         constraints:
           - node.labels.arch == arm32v7
