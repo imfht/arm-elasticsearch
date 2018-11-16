@@ -26,6 +26,8 @@ services:
 
   es_ninja:
     image: jahrik/arm-elasticsearch:arm32v7
+    environment:
+      url: "http://homelab.business/"
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
