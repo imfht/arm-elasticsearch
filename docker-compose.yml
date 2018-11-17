@@ -17,7 +17,7 @@ services:
       labels:
         traefik.enable: 1
         traefik.port: 9200
-        traefik.backend: elk
+        traefik.backend: elasticsearch
         traefik.docker.network: traefik
         traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
@@ -40,9 +40,9 @@ services:
       labels:
         traefik.enable: 1
         traefik.port: 9200
-        traefik.backend: elk
+        traefik.backend: elasticsearch
         traefik.docker.network: traefik
-        traefik.frontend.rule: Host:elasticsearch.homelab.business
+        # traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
         constraints:
           - node.labels.arch == arm32v7
@@ -61,9 +61,9 @@ services:
       labels:
         traefik.enable: 1
         traefik.port: 9200
-        traefik.backend: elk
+        traefik.backend: elasticsearch
         traefik.docker.network: traefik
-        traefik.frontend.rule: Host:elasticsearch.homelab.business
+        # traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
         constraints:
           - node.labels.arch == arm32v7
