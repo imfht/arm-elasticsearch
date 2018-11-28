@@ -61,11 +61,9 @@ path.data: {{ elasticsearch.data_path }}
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 
-{% if ansible_hostname == 'venus' %}
+{% if ansible_hostname == 'leona' %}
 network.bind_host: ["_eth0_","_eth1_"]
 network.publish_host: _eth0_
-{% elif ansible_hostname == 'leona' %}
-network.host: _enp2s0_
 {% else %}
 network.host: _eth0_
 {% endif %}
