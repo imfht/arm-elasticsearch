@@ -49,7 +49,7 @@ services:
     ports:
       - "9200:9200"
     environment:
-      - bootstrap.memory_lock=true
+      # - bootstrap.memory_lock=true
       - xpack.security.enabled=false
     volumes:
       - /data:/usr/share/elasticsearch/data:rw
