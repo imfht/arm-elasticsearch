@@ -1,0 +1,12 @@
+---
+elasticsearch:
+  uid: 102
+  gid: 102
+  data_path: /var/lib/elasticsearch
+  logs_path: /var/log/elasticsearch
+  conf_path: /etc/elasticsearch
+  directories:
+    - /data
+    - /etc/elasticsearch
+    - /var/log/elasticsearch/
+  network_host: 'placeholder'
