@@ -26,8 +26,6 @@ node.name: es_{{ ansible_hostname }}
 {% if ansible_hostname == 'leona' %}
 node.master: false 
 node.data: true 
-node.ingest: false 
-cluster.remote.connect: false 
 {% endif %}
 
 # Add custom attributes to the node:
