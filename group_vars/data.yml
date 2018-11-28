@@ -1,4 +1,15 @@
 ---
+elasticsearch:
+  uid: 102
+  gid: 102
+  data_path: /usr/share/elasticsearch/data
+  logs_path: /usr/share/elasticsearch/logs
+  conf_path: /etc/elasticsearch
+  directories:
+    - /data
+    - /etc/elasticsearch
+    - /var/log/elasticsearch/
+  network_host: 'placeholder'
 java:
   repo: ppa:webupd8team/java
   name: oracle-java8-installer
