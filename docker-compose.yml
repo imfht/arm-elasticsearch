@@ -15,7 +15,7 @@ services:
       - elk
     deploy:
       labels:
-        traefik.enable: 1
+        traefik.enable: 0
         traefik.port: 9200
         traefik.backend: elasticsearch
         traefik.docker.network: traefik
@@ -38,7 +38,7 @@ services:
       - elk
     deploy:
       labels:
-        traefik.enable: 1
+        traefik.enable: 0
         traefik.port: 9200
         traefik.backend: elasticsearch
         traefik.docker.network: traefik
@@ -59,7 +59,7 @@ services:
       - elk
     deploy:
       labels:
-        traefik.enable: 1
+        traefik.enable: 0
         traefik.port: 9200
         traefik.backend: elasticsearch
         traefik.docker.network: traefik
