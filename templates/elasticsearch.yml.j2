@@ -23,6 +23,13 @@ cluster.name: elasticsearch
 
 node.name: es_{{ ansible_hostname }}
 
+{% if ansible_hostname == 'leona' %}
+node.master: false 
+node.data: true 
+node.ingest: false 
+cluster.remote.connect: false 
+{% endif %}
+
 # Add custom attributes to the node:
 #
 #node.attr.rack: r1
@@ -56,6 +63,8 @@ path.logs: {{ elasticsearch.logs_path }}
 {% if ansible_hostname == 'venus' %}
 network.bind_host: ["_eth0_","_eth1_"]
 network.publish_host: _eth0_
+{% elif ansible_hostname == 'leona' %}
+network.host: _enp2s0_
 {% else %}
 network.host: _eth0_
 {% endif %}

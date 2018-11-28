@@ -84,3 +84,89 @@
       # notify: restart elasticsearch
       tags:
         - elasticsearch
+
+######################
+# x86_64 node, leona #
+######################
+- hosts: leona
+  become: true
+  become_method: sudo
+  vars:
+    elasticsearch:
+      uid: 102
+      gid: 102
+      data_path: /var/lib/elasticsearch
+      logs_path: /var/log/elasticsearch
+      conf_path: /etc/elasticsearch
+      directories:
+        - /data
+        - /etc/elasticsearch
+        - /var/log/elasticsearch/
+      network_host: 'placeholder'
+    java:
+      repo: ppa:webupd8team/java
+      name: oracle-java8-installer
+      xms: 2g
+      xmx: 2g
+      xss: 640k
+
+  tasks:
+
+#     - name: install parted
+#       package:
+#         name: parted
+#         state: present
+#       tags:
+#         - setup
+# 
+#     - name: Create Primary partition
+#       parted:
+#         device: /dev/sda
+#         number: 1
+#         state: present
+#       tags:
+#         - setup
+# 
+#     - name: Create a ext4 filesystem on /dev/sda1
+#       filesystem:
+#         fstype: ext4
+#         dev: /dev/sda1
+#         # opts: -cc
+#       tags:
+#         - setup
+
+    - name: Ensure directory exists
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ elasticsearch.uid}}"
+        group: "{{ elasticsearch.gid}}"
+      with_items: ["{{ elasticsearch.directories }}"]
+      tags:
+        - setup
+
+#     - name: Mount data drive
+#       mount:
+#         path: /data
+#         src: /dev/sda1
+#         fstype: ext4
+#         state: present
+#       tags:
+#         - setup
+
+    - name: max_map_count
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^vm.max_map_count='
+        line: 'vm.max_map_count=262144'
+
+    - name: Generate config files
+      template:
+        src: "{{ item }}.j2"
+        dest: "/etc/elasticsearch/{{ item }}"
+      with_items:
+        - elasticsearch.yml
+        - jvm.options
+      # notify: restart elasticsearch
+      tags:
+        - elasticsearch

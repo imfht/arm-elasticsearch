@@ -11,15 +11,8 @@ services:
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
       - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     networks:
-      - traefik
       - elk
     deploy:
-      labels:
-        traefik.enable: 0
-        traefik.port: 9200
-        traefik.backend: elasticsearch
-        traefik.docker.network: traefik
-        traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
         constraints:
           - node.labels.arch == arm32v7
@@ -34,15 +27,8 @@ services:
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
       - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     networks:
-      - traefik
       - elk
     deploy:
-      labels:
-        traefik.enable: 0
-        traefik.port: 9200
-        traefik.backend: elasticsearch
-        traefik.docker.network: traefik
-        # traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
         constraints:
           - node.labels.arch == arm32v7
@@ -55,24 +41,28 @@ services:
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
       - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
     networks:
-      - traefik
       - elk
     deploy:
-      labels:
-        traefik.enable: 0
-        traefik.port: 9200
-        traefik.backend: elasticsearch
-        traefik.docker.network: traefik
-        # traefik.frontend.rule: Host:elasticsearch.homelab.business
       placement:
         constraints:
           - node.labels.arch == arm32v7
           - node.hostname == oroku
 
+  es_leona:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.12
+    volumes:
+      - /data:/var/lib/elasticsearch:rw
+      - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - /etc/elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
+    networks:
+      - elk
+    deploy:
+      placement:
+        constraints:
+          - node.labels.arch == x86_64
+          - node.hostname == leona
+
 networks:
-  traefik:
-    driver: overlay
-    external: true
   elk:
     name: elk
     driver: overlay
