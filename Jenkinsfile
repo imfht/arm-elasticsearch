@@ -1,17 +1,17 @@
 #!/usr/bin/env groovy
 
-def labels = ['armv7l', 'aarch64', 'x86_64'] // labels for jenkins node types we will build on
+def labels = ['armv7l', 'aarch64', 'x86_64'] // labels for Jenkins node types we will build on
 def builders = [:]
 for (x in labels) {
-  def label = x // need to bind the label variable before the closure - can't do 'for (label in labels)'
+  def label = x // Need to bind the label variable before the closure - can't do 'for (label in labels)'
 
-  // create a map to pass in to the 'parallel' step so we can fire all the builds at once
+  // Create a map to pass in to the 'parallel' step so we can fire all the builds at once
   builders[label] = {
     node(label) {
       try {
 
         stage('build') {
-          deletedir()
+          deleteDir()
           checkout scm
           sh "make"
         }
@@ -27,7 +27,7 @@ for (x in labels) {
         throw error
 
       } finally {
-        // any cleanup operations needed, whether we hit an error or not
+        // Any cleanup operations needed, whether we hit an error or not
       }
     }
   }
