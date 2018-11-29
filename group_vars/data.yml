@@ -13,6 +13,6 @@ elasticsearch:
 java:
   repo: ppa:webupd8team/java
   name: oracle-java8-installer
-  xms: 2g
-  xmx: 2g
-  xss: 640k
+  xms: 3g
+  xmx: 3g
+  xss: 1m
