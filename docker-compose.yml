@@ -45,8 +45,7 @@ services:
           - node.hostname == oroku
 
   es_leona:
-    # image: docker.elastic.co/elasticsearch/elasticsearch:5.6.12
-    image: jahrik/elasticsearch:5.6.12
+    image: jahrik/elasticsearch:x86_64
     ports:
       - "9200:9200"
     environment:
