@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   es_venus:
-    image: jahrik/arm-elasticsearch:arm32v7
+    image: jahrik/arm-elasticsearch:armv7l
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
@@ -17,7 +17,7 @@ services:
           - node.hostname == venus
 
   es_ninja:
-    image: jahrik/arm-elasticsearch:arm32v7
+    image: jahrik/arm-elasticsearch:armv7l
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
@@ -31,7 +31,7 @@ services:
           - node.hostname == ninja
 
   es_oroku:
-    image: jahrik/arm-elasticsearch:arm32v7
+    image: jahrik/arm-elasticsearch:armv7l
     volumes:
       - /data:/var/lib/elasticsearch:rw
       - /etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
