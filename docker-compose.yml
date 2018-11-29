@@ -45,7 +45,7 @@ services:
           - node.hostname == oroku
 
   es_leona:
-    image: jahrik/elasticsearch:x86_64
+    image: jahrik/arm-elasticsearch:x86_64
     ports:
       - "9200:9200"
     environment:
