@@ -1,34 +1,39 @@
 #!/usr/bin/env groovy
 
-node('arm32v7') {
+def labels = ['armv7l', 'aarch64', 'x86_64'] // labels for jenkins node types we will build on
+def builders = [:]
+for (x in labels) {
+  def label = x // need to bind the label variable before the closure - can't do 'for (label in labels)'
 
-    try {
+  // create a map to pass in to the 'parallel' step so we can fire all the builds at once
+  builders[label] = {
+    node(label) {
+      try {
 
         stage('build') {
-            // Clean workspace
-            deleteDir()
-            // Checkout the app at the given commit sha from the webhook
-            checkout scm
-            sh "make"
+          deletedir()
+          checkout scm
+          sh "make"
         }
 
         stage('test') {
-            // Run any testing suites
         }
 
         stage('push') {
-            // Push to Dockerhub
-            sh "make push"
+          sh "make push"
         }
 
-    } catch(error) {
+      } catch(error) {
         throw error
 
-    } finally {
-        // Any cleanup operations needed, whether we hit an error or not
-
+      } finally {
+        // any cleanup operations needed, whether we hit an error or not
+      }
     }
+  }
 }
+
+parallel builders
 
 node('master') {
 

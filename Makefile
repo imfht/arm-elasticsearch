@@ -1,15 +1,16 @@
 IMAGE = "jahrik/arm-elasticsearch"
-TAG = "arm32v7"
+TAG := $(shell uname -m)
+STACK = "elk"
 
 all: build
 
 build:
-	@docker build -t ${IMAGE}:$(TAG) .
+	@docker build -t ${IMAGE}:$(TAG) -f Dockerfile_${TAG} .
 
 push:
 	@docker push ${IMAGE}:$(TAG)
 
 deploy:
-	@docker stack deploy -c docker-compose.yml elk
+	@docker stack deploy -c docker-compose.yml ${STACK}
 
 .PHONY: all build push deploy
