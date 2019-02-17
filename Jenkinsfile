@@ -28,7 +28,7 @@ for (x in labels) {
         throw error
 
       } finally {
-        // Any cleanup operations needed, whether we hit an error or not
+        deleteDir()
       }
     }
   }
@@ -36,35 +36,51 @@ for (x in labels) {
 
 parallel builders
 
-node('master') {
+node('ansible') {
 
-    try {
+  try {
 
-        stage('scm') {
-            // Clean workspace
-            deleteDir()
-            // Checkout the app at the given commit sha from the webhook
-            checkout scm
-        }
-
-        stage('deploy') {
-            // Ansible
-            echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            ansiColor('xterm') {
-                ansiblePlaybook(
-                    playbook: 'playbook.yml',
-                    inventory: 'inventory.ini',
-                    colorized: true)
-            }
-            // Docker deploy
-            sh "make deploy"
-        }
-
-    } catch(error) {
-        throw error
-
-    } finally {
-        // Any cleanup operations needed, whether we hit an error or not
-
+    stage('scm') {
+      deleteDir()
+      checkout scm
     }
+
+    stage('provision') {
+      // Ansible
+      echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+      ansiColor('xterm') {
+        ansiblePlaybook(
+          playbook: 'playbook.yml',
+          inventory: 'inventory.ini',
+          colorized: true)
+      }
+    }
+
+  } catch(error) {
+    throw error
+
+  } finally {
+    deleteDir()
+  }
+}
+
+node('manager') {
+
+  try {
+
+    stage('scm') {
+      deleteDir()
+      checkout scm
+    }
+
+    stage('deploy') {
+      sh "make deploy"
+    }
+
+  } catch(error) {
+    throw error
+
+  } finally {
+    deleteDir()
+  }
 }
