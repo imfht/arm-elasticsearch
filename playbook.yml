@@ -8,35 +8,35 @@
 
   tasks:
 
-    - name: install parted
-      package:
-        name: parted
-        state: present
-      tags:
-        - setup
-
-    - name: Create Primary partition
-      parted:
-        device: /dev/sda
-        number: 1
-        state: present
-      tags:
-        - setup
-
-    - name: Create a ext4 filesystem on /dev/sda1
-      filesystem:
-        fstype: ext4
-        dev: /dev/sda1
-        # opts: -cc
-      tags:
-        - setup
+#     - name: install parted
+#       package:
+#         name: parted
+#         state: present
+#       tags:
+#         - setup
+#
+#     - name: Create Primary partition
+#       parted:
+#         device: /dev/sda
+#         number: 1
+#         state: present
+#       tags:
+#         - setup
+#
+#     - name: Create a ext4 filesystem on /dev/sda1
+#       filesystem:
+#         fstype: ext4
+#         dev: /dev/sda1
+#         # opts: -cc
+#       tags:
+#         - setup
 
     - name: Ensure directory exists
       file:
         path: "{{ item }}"
         state: directory
-        owner: "{{ elasticsearch.uid}}"
-        group: "{{ elasticsearch.gid}}"
+        owner: "{{ elasticsearch.uid }}"
+        group: "{{ elasticsearch.gid }}"
       with_items: ["{{ elasticsearch.directories }}"]
       tags:
         - setup
@@ -62,8 +62,8 @@
       file:
         path: "{{ item }}"
         state: directory
-        owner: "{{ elasticsearch.uid}}"
-        group: "{{ elasticsearch.gid}}"
+        owner: "{{ elasticsearch.uid }}"
+        group: "{{ elasticsearch.gid }}"
       with_items: ["{{ elasticsearch.directories }}"]
       tags:
         - setup
