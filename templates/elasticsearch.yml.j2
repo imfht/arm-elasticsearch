@@ -27,9 +27,12 @@ node.name: es_{{ ansible_hostname }}
 # node.master: true
 # node.data: true
 # {% else %}
+# node.master: true
+# node.data: true
+# {% endif %}
+
 node.master: true
 node.data: true
-# {% endif %}
 
 # Add custom attributes to the node:
 #
