@@ -23,7 +23,7 @@ cluster.name: elasticsearch
 
 node.name: es_{{ ansible_hostname }}
 
-{% if ansible_fqdn in groups['master'] %}
+{% if ansible_hostname in groups['master'] %}
 node.master: true
 node.data: true
 {% else %}
@@ -61,7 +61,7 @@ path.data: {{ elasticsearch.data_path }}
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 
-{% if ansible_fqdn in groups['master'] %}
+{% if ansible_hostname in groups['master'] %}
 network.bind_host: _eth0_
 network.publish_host: _eth0_
 {% else %}
