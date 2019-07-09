@@ -23,16 +23,13 @@ cluster.name: elasticsearch
 
 node.name: es_{{ ansible_hostname }}
 
-# {% if ansible_hostname == 'ninja' %}
-# node.master: true
-# node.data: true
-# {% else %}
-# node.master: true
-# node.data: true
-# {% endif %}
-
+{% if groups['odroid'][0] %}
 node.master: true
 node.data: true
+{% else %}
+node.master: false
+node.data: true
+{% endif %}
 
 # Add custom attributes to the node:
 #
@@ -64,12 +61,12 @@ path.data: {{ elasticsearch.data_path }}
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 
-# {% if ansible_hostname == 'leona' %}
-# network.bind_host: ["_eth0_","_eth1_"]
-# network.publish_host: _eth0_
-# {% else %}
+{% if groups['odroid'][0] %}
+network.bind_host: _eth0_
+network.publish_host: _eth0_
+{% else %}
 network.host: _eth0_
-# {% endif %}
+{% endif %}
 
 # Set a custom port for HTTP:
 #
@@ -91,8 +88,8 @@ discovery.zen.ping.unicast.hosts: ["{% for host in play_hosts %}es_{{ hostvars[h
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 
 # discovery.zen.minimum_master_nodes: {{ groups.odroid | length / 2 + 1 }}
-discovery.zen.minimum_master_nodes: {{ groups.odroid | length }}
-# discovery.zen.minimum_master_nodes: 1
+# discovery.zen.minimum_master_nodes: {{ groups.odroid | length }}
+discovery.zen.minimum_master_nodes: 1
 
 # For more information, consult the zen discovery module documentation.
 #
